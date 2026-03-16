@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Influencer Scene Builder</title>
+<style>
+body{font-family:Arial,Helvetica,sans-serif;background:#0f172a;color:#e5e7eb;margin:0;padding:30px}
+.container{max-width:1200px;margin:auto}
+.card{background:#111827;border-radius:14px;padding:24px;margin-bottom:20px;box-shadow:0 10px 25px rgba(0,0,0,0.3)}
+select,button{width:100%;padding:10px;margin-top:10px;border-radius:8px;border:none;font-size:14px}
+select{background:#1f2937;color:#fff}
+button{cursor:pointer}
+.generate{background:#2563eb;color:white}
+.copy{background:#10b981;color:white;margin-top:10px}
+.random{background:#f59e0b;color:white;margin-top:10px}
+textarea{width:100%;height:380px;margin-top:10px;background:#020617;color:#22c55e;border-radius:10px;padding:10px;border:none;font-family:monospace}
+h1{margin-bottom:10px}
+label{font-weight:bold;margin-top:12px;display:block}
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>AI Influencer Scene Builder</h1>
+<p>Cinematic influencer style prompt generator for AI video models.</p>
+
+<div class="card">
+
+<label>Location</label>
+<select id="location">
+<option value="a luxurious modern living room with large windows">Luxury Living Room</option>
+<option value="a minimalist influencer studio with soft lighting">Influencer Studio</option>
+<option value="a stylish penthouse living room overlooking a city skyline">Penthouse Interior</option>
+<option value="a cozy aesthetic living room with plants and modern furniture">Aesthetic Living Room</option>
+<option value="a bright modern loft apartment interior">Modern Loft</option>
+</select>
+
+<label>Model Pose</label>
+<select id="pose">
+<option value="sitting casually on a modern sofa">Sitting on Sofa</option>
+<option value="leaning comfortably against the couch">Leaning Pose</option>
+<option value="sitting cross legged on the sofa">Cross Legged</option>
+<option value="relaxing on the floor with pillows">Floor Relax Pose</option>
+<option value="lounging stylishly on a luxury couch">Luxury Lounge</option>
+</select>
+
+<label>Animal Companion</label>
+<select id="animal">
+<option value="a calm tiger resting behind her">Tiger</option>
+<option value="a relaxed leopard lying on the floor behind her">Leopard</option>
+<option value="a majestic white tiger calmly sitting nearby">White Tiger</option>
+<option value="a friendly cheetah resting beside the sofa">Cheetah</option>
+<option value="a majestic lion calmly sitting behind the sofa">Lion</option>
+<option value="a sleek black panther relaxing behind her">Black Panther</option>
+<option value="a calm grey wolf lying peacefully near the couch">Wolf</option>
+<option value="a curious red fox sitting near her feet">Fox</option>
+<option value="a large fluffy arctic fox resting nearby">Arctic Fox</option>
+<option value="a powerful jaguar calmly watching the room">Jaguar</option>
+<option value="a relaxed lynx sitting quietly behind her">Lynx</option>
+<option value="a gentle serval cat sitting near the sofa">Serval</option>
+<option value="a calm snow leopard resting behind her">Snow Leopard</option>
+<option value="none">None</option>
+</select>
+
+<label>Camera Movement</label>
+<select id="camera">
+<option value="a handheld influencer selfie camera">Selfie Camera</option>
+<option value="a slow cinematic orbit around the influencer">Cinematic Orbit</option>
+<option value="a handheld vlog style camera movement">Vlog Style</option>
+<option value="a smooth gimbal cinematic reveal">Gimbal Reveal</option>
+</select>
+
+<label>Shot Composition</label>
+<select id="shot">
+<option value="close-up influencer selfie framing">Close-up</option>
+<option value="medium influencer vlog framing">Medium Shot</option>
+<option value="wide cinematic interior framing">Wide Shot</option>
+</select>
+
+<label>Lighting</label>
+<select id="lighting">
+<option value="soft natural window lighting">Natural Light</option>
+<option value="warm golden hour sunlight entering through the windows">Golden Hour</option>
+<option value="soft influencer studio lighting">Studio Lighting</option>
+<option value="dramatic cinematic interior lighting">Cinematic Interior</option>
+</select>
+
+<label>Environment Mood</label>
+<select id="mood">
+<option value="calm relaxed influencer atmosphere">Relaxed</option>
+<option value="luxury lifestyle influencer vibe">Luxury Vibe</option>
+<option value="aesthetic cozy atmosphere">Cozy Aesthetic</option>
+<option value="high end lifestyle social media vibe">Luxury Social Media</option>
+</select>
+
+<label>Video Duration</label>
+<select id="duration">
+<option value="5">5 seconds</option>
+<option value="8">8 seconds</option>
+<option value="12">12 seconds</option>
+<option value="15">15 seconds</option>
+</select>
+
+<label>Style</label>
+<select id="style">
+<option value="cinematic photorealistic film look">Cinematic</option>
+<option value="viral social media influencer video">Social Media</option>
+<option value="high end luxury lifestyle commercial">Luxury Commercial</option>
+</select>
+
+<button class="generate" onclick="generateJSON()">Generate JSON Prompt</button>
+<button class="random" onclick="randomPrompt()">🎲 Random Viral Scene</button>
+
+</div>
+
+<div class="card">
+<label>Generated JSON</label>
+<textarea id="output"></textarea>
+<button class="copy" onclick="copyJSON()">Copy JSON</button>
+</div>
+
+</div>
+
+<script>
+
+function generateJSON(){
+
+const location=document.getElementById('location').value
+const pose=document.getElementById('pose').value
+const animal=document.getElementById('animal').value
+const camera=document.getElementById('camera').value
+const shot=document.getElementById('shot').value
+const lighting=document.getElementById('lighting').value
+const mood=document.getElementById('mood').value
+const duration=document.getElementById('duration').value
+const style=document.getElementById('style').value
+
+const json={
+metadata:{
+ title:"AI Influencer Lifestyle Scene",
+ generator:"AI Influencer Scene Builder"
+},
+
+video_analysis:{
+subject:"A young female influencer wearing a stylish crop top and short pants",
+setting:location,
+pose:pose,
+animal_companion:animal,
+camera_movement:camera
+},
+
+ai_generation_prompt:{
+text_to_video_prompt:`Cinematic ${shot} video of a young female influencer wearing a trendy crop top and short pants. She is ${pose}. The camera performs ${camera}. The scene takes place in ${location}. Behind her there is ${animal}. Lighting condition is ${lighting}. The environment mood is ${mood}. Highly detailed interior design, stylish influencer lifestyle setting, realistic textures, social media aesthetic, photorealistic lighting. Style ${style}.`,
+
+negative_prompt:"blurry, low resolution, distorted anatomy, cartoon style, anime style, unrealistic animals",
+
+technical_specs:{
+aspect_ratio:"9:16",
+resolution:"4K",
+frame_rate:"30fps",
+duration_seconds:Number(duration),
+style:style
+}
+}
+}
+
+const formatted=JSON.stringify(json,null,2)
+document.getElementById('output').value=formatted
+}
+
+function randomPrompt(){
+const selects=document.querySelectorAll('select')
+selects.forEach(select=>{
+select.selectedIndex=Math.floor(Math.random()*select.options.length)
+})
+generateJSON()
+}
+
+function copyJSON(){
+const text=document.getElementById('output')
+text.select()
+document.execCommand('copy')
+alert('JSON copied')
+}
+
+</script>
+
+</body>
+</html>
