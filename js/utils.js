@@ -1,5 +1,6 @@
 export function createSelect(id,label,data){
 const wrapper=document.createElement('div')
+wrapper.className='form-group'
 
 const lbl=document.createElement('label')
 lbl.innerText=label
@@ -18,10 +19,4 @@ wrapper.appendChild(lbl)
 wrapper.appendChild(select)
 
 return wrapper
-}
-
-export function randomizeSelects(){
-document.querySelectorAll('select').forEach(s=>{
-s.selectedIndex=Math.floor(Math.random()*s.options.length)
-})
 }
