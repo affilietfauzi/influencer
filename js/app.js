@@ -2,17 +2,24 @@ import { locations } from '../db/locations.js'
 import { poses } from '../db/poses.js'
 import { animals } from '../db/animals.js'
 import { influencers } from '../db/influencers.js'
+import { tops } from '../db/tops.js'
+import { bottoms } from '../db/bottoms.js'
 
 import { createSelect, randomizeSelects } from './utils.js'
 import { generatePrompt } from './generator.js'
 
 const form=document.getElementById('form-container')
 
-// create UI dynamically
+// UI ORDER (lebih enak UX)
 form.appendChild(createSelect('influencer','Influencer',influencers))
 form.appendChild(createSelect('location','Location',locations))
 form.appendChild(createSelect('pose','Pose',poses))
-form.appendChild(createSelect('animal','Animal',animals))
+
+// NEW 👇
+form.appendChild(createSelect('top','Top Outfit',tops))
+form.appendChild(createSelect('bottom','Bottom Outfit',bottoms))
+
+form.appendChild(createSelect('animal','Animal Companion',animals))
 
 // generate
 document.getElementById('generateBtn').onclick=()=>{
@@ -20,6 +27,8 @@ const data={
 influencer:document.getElementById('influencer').value,
 location:document.getElementById('location').value,
 pose:document.getElementById('pose').value,
+top:document.getElementById('top').value,
+bottom:document.getElementById('bottom').value,
 animal:document.getElementById('animal').value,
 style:"cinematic photorealistic"
 }
