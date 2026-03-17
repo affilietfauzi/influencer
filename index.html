@@ -1,52 +1,39 @@
-<!-- =========================
-PROJECT STRUCTURE
-=========================
-/index.html
-/css/style.css
-/js/app.js
-/data/location.js
-/data/pose.js
-/data/animal.js
-/data/camera.js
-/data/shot.js
-/data/lighting.js
-/data/mood.js
-/data/style.js
-========================= -->
-
-<!-- =========================
-index.html
-========================= -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Influencer Scene Builder PRO</title>
+
 <link rel="stylesheet" href="css/style.css">
+
 </head>
 <body>
+
 <div class="container">
 
 <header>
 <h1>AI Influencer Scene Builder PRO</h1>
-<p>Create cinematic AI prompts with modular database system</p>
+<p>Create cinematic viral prompts for AI video models</p>
 </header>
 
 <div class="grid">
+
 <div class="card">
 
 <div id="form-container"></div>
 
-<button class="btn primary" onclick="generateJSON()">Generate JSON</button>
-<button class="btn warning" onclick="randomPrompt()">🎲 Random Scene</button>
+<button class="btn primary" id="generateBtn">Generate Prompt</button>
+<button class="btn warning" id="randomBtn">🎲 Random</button>
 
 </div>
 
 <div class="card">
-<label>Generated JSON</label>
+
+<h3>Generated JSON</h3>
 <textarea id="output"></textarea>
-<button class="btn success" onclick="copyJSON()">Copy JSON</button>
+<button class="btn success" id="copyBtn">Copy</button>
+
 </div>
 
 </div>
@@ -55,191 +42,3 @@ index.html
 <script type="module" src="js/app.js"></script>
 </body>
 </html>
-
-
-<!-- =========================
-css/style.css
-========================= -->
-body{
-margin:0;
-font-family:Inter, sans-serif;
-background:#0b1220;
-color:#e5e7eb;
-}
-.container{
-max-width:1200px;
-margin:auto;
-padding:20px;
-}
-header{
-margin-bottom:20px;
-}
-.grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:20px;
-}
-.card{
-background:#111827;
-padding:20px;
-border-radius:12px;
-box-shadow:0 10px 30px rgba(0,0,0,0.4);
-}
-select,textarea{
-width:100%;
-padding:10px;
-margin-top:8px;
-margin-bottom:12px;
-border-radius:8px;
-border:none;
-background:#1f2937;
-color:white;
-}
-textarea{
-height:400px;
-font-family:monospace;
-}
-.btn{
-width:100%;
-padding:10px;
-border:none;
-border-radius:8px;
-margin-top:10px;
-cursor:pointer;
-font-weight:bold;
-}
-.primary{background:#2563eb}
-.success{background:#10b981}
-.warning{background:#f59e0b}
-
-
-<!-- =========================
-data/location.js
-========================= -->
-export const locations=[
-"a luxurious modern living room with large windows",
-"a minimalist influencer studio with soft lighting",
-"a stylish penthouse overlooking city skyline"
-]
-
-<!-- =========================
-data/pose.js
-========================= -->
-export const poses=[
-"sitting casually on a modern sofa",
-"leaning comfortably against the couch",
-"sitting cross legged on the sofa"
-]
-
-<!-- =========================
-data/animal.js
-========================= -->
-export const animals=[
-"a calm tiger resting behind her",
-"a relaxed leopard lying behind her",
-"none"
-]
-
-<!-- =========================
-data/camera.js
-========================= -->
-export const cameras=[
-"a handheld influencer selfie camera",
-"a cinematic orbit shot",
-"a vlog style handheld movement"
-]
-
-<!-- =========================
-data/shot.js
-========================= -->
-export const shots=[
-"close-up influencer framing",
-"medium vlog framing",
-"wide cinematic shot"
-]
-
-<!-- =========================
-data/lighting.js
-========================= -->
-export const lightings=[
-"soft natural lighting",
-"golden hour sunlight",
-"cinematic dramatic lighting"
-]
-
-<!-- =========================
-data/mood.js
-========================= -->
-export const moods=[
-"calm relaxed atmosphere",
-"luxury lifestyle vibe",
-"cozy aesthetic mood"
-]
-
-<!-- =========================
-data/style.js
-========================= -->
-export const styles=[
-"cinematic photorealistic",
-"social media viral style",
-"luxury commercial look"
-]
-
-
-<!-- =========================
-js/app.js
-========================= -->
-import {locations} from '../data/location.js'
-import {poses} from '../data/pose.js'
-import {animals} from '../data/animal.js'
-import {cameras} from '../data/camera.js'
-import {shots} from '../data/shot.js'
-import {lightings} from '../data/lighting.js'
-import {moods} from '../data/mood.js'
-import {styles} from '../data/style.js'
-
-const formContainer=document.getElementById('form-container')
-
-const createSelect=(label,data,id)=>{
-let html=`<label>${label}</label><select id="${id}">`
-data.forEach(item=>{
-html+=`<option value="${item}">${item}</option>`
-})
-html+='</select>'
-return html
-}
-
-formContainer.innerHTML=
-createSelect('Location',locations,'location')+
-createSelect('Pose',poses,'pose')+
-createSelect('Animal',animals,'animal')+
-createSelect('Camera',cameras,'camera')+
-createSelect('Shot',shots,'shot')+
-createSelect('Lighting',lightings,'lighting')+
-createSelect('Mood',moods,'mood')+
-createSelect('Style',styles,'style')
-
-window.generateJSON=()=>{
-const val=id=>document.getElementById(id).value
-
-const json={
-metadata:{title:"AI Influencer Scene"},
-prompt:`${val('shot')} video of influencer. She is ${val('pose')}. Scene in ${val('location')}. ${val('animal')}. Camera ${val('camera')}. Lighting ${val('lighting')}. Mood ${val('mood')}. Style ${val('style')}.`
-}
-
-document.getElementById('output').value=JSON.stringify(json,null,2)
-}
-
-window.randomPrompt=()=>{
-document.querySelectorAll('select').forEach(s=>{
-s.selectedIndex=Math.floor(Math.random()*s.options.length)
-})
-generateJSON()
-}
-
-window.copyJSON=()=>{
-const text=document.getElementById('output')
-text.select()
-document.execCommand('copy')
-alert('Copied!')
-}
